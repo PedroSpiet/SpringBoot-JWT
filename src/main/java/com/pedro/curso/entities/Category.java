@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Categories implements Serializable {
+public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -15,9 +15,9 @@ public class Categories implements Serializable {
     @Column
     private String name;
 
-    public Categories(){}
+    public Category(){}
 
-    public Categories(Long id, String name) {
+    public Category(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -41,8 +41,8 @@ public class Categories implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Categories)) return false;
-        Categories that = (Categories) o;
+        if (!(o instanceof Category)) return false;
+        Category that = (Category) o;
         return getId().equals(that.getId());
     }
 

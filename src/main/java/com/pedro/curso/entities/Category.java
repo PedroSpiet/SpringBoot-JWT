@@ -1,7 +1,11 @@
 package com.pedro.curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +18,10 @@ public class Category implements Serializable {
 
     @Column
     private String name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products = new ArrayList<>();
 
     public Category(){}
 
@@ -36,6 +44,15 @@ public class Category implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override

@@ -1,13 +1,7 @@
 package com.pedro.curso.config;
 
-import com.pedro.curso.entities.Category;
-import com.pedro.curso.entities.City;
-import com.pedro.curso.entities.Product;
-import com.pedro.curso.entities.State;
-import com.pedro.curso.repositories.CategoriesRepository;
-import com.pedro.curso.repositories.CityRepository;
-import com.pedro.curso.repositories.ProductRepository;
-import com.pedro.curso.repositories.StateRepository;
+import com.pedro.curso.entities.*;
+import com.pedro.curso.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +22,12 @@ public class InstanceDB implements CommandLineRunner {
 
     @Autowired
     private CityRepository cityRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -59,5 +59,16 @@ public class InstanceDB implements CommandLineRunner {
 
         categoryRepository.saveAll(Arrays.asList(category1, category2));
         productRepository.saveAll(Arrays.asList(product1, product2, product3));
+
+        Client c1 = new Client(null, "Maria", "Maria@gmail.com", "123456", TypeClient.PhysicalPerson);
+        c1.getTelephones().addAll(Arrays.asList("13996403088", "13996403089"));
+
+        Address ad1 = new Address(null, "Rua Flores", 300, "Apto 230", "Jardim", "4564484", c1, city1);
+        Address ad2 = new Address(null, "Rua Matos", 300, "Apto 230", "Renato Dias", "45123284", c1, city2);
+
+        c1.getAddresses().addAll(Arrays.asList(ad1, ad2));
+
+        clientRepository.saveAll(Arrays.asList(c1));
+        addressRepository.saveAll(Arrays.asList(ad1, ad2));
     }
 }

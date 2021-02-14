@@ -33,6 +33,9 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Address> addresses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "client")
+    private List<Order> order = new ArrayList<>();
+
     public Client(){}
 
     public Client(Long id, String name, String email, String cpfOrCnpj, TypeClient typeClient) {
@@ -99,6 +102,14 @@ public class Client implements Serializable {
         this.addresses = addresses;
     }
 
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,4 +122,5 @@ public class Client implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
 }

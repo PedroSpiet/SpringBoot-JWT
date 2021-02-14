@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @Configuration
@@ -28,6 +29,12 @@ public class InstanceDB implements CommandLineRunner {
 
     @Autowired
     private AddressRepository addressRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -70,5 +77,21 @@ public class InstanceDB implements CommandLineRunner {
 
         clientRepository.saveAll(Arrays.asList(c1));
         addressRepository.saveAll(Arrays.asList(ad1, ad2));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        Order o1 = new Order(null, sdf.parse("14/02/2021 10:50"), c1, ad1);
+        Order o2 = new Order(null, sdf.parse("14/02/2021 20:50"), c1, ad2);
+
+        Payment pgto1 = new PaymentWithCard(null, PaymentStatus.SETTLED, o1, 6);
+        o1.setPayment(pgto1);
+
+        Payment pgto2 = new PaymentWithTicket(null, PaymentStatus.SETTLED, o2, sdf.parse("20/10/2020 10:00"), null);
+        o2.setPayment(pgto2);
+
+        c1.getOrder().addAll(Arrays.asList(o1, o2));
+
+        orderRepository.saveAll(Arrays.asList(o1, o2));
+        paymentRepository.saveAll(Arrays.asList(pgto1, pgto2));
     }
 }

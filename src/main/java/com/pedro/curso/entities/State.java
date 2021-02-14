@@ -18,7 +18,7 @@ public class State implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "state")
-    private List<City> cities = new ArrayList<>();
+    private List<City>  cities = new ArrayList<>();
 
     public State() {}
 

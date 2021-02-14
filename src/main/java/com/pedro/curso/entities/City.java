@@ -1,5 +1,6 @@
 package com.pedro.curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class City implements Serializable {
     @Column
     private String name;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_state")
     private State state;

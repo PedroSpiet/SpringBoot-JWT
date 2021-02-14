@@ -1,5 +1,7 @@
 package com.pedro.curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -10,7 +12,7 @@ public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column
     private String name;
@@ -33,7 +35,7 @@ public class Client implements Serializable {
 
     public Client(){}
 
-    public Client(Integer id, String name, String email, String cpfOrCnpj, TypeClient typeClient) {
+    public Client(Long id, String name, String email, String cpfOrCnpj, TypeClient typeClient) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -41,11 +43,11 @@ public class Client implements Serializable {
         this.typeClient = typeClient.getCod();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
